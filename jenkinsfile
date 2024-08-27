@@ -1,0 +1,14 @@
+node('node-1'){
+    stage("scm"){
+        git branch: 'main', url: 'https://github.com/Aswin9796/DevOps_html_project.git'
+    }
+    stage("docker build"){
+        sh "docker build -t aswincontainer/html-app ."
+    }
+    stage("dockerpush"){
+        sh "docker login -u aswincontainer -p Aswin9796_"
+    }
+    stage("deploy"){
+        sh "docker run -itd --name html1 -p 81:80 aswincontainer/html-app"
+    }
+}
